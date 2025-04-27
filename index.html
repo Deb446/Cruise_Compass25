@@ -9,7 +9,11 @@
 <body>
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="logo">Cruise Compass</div>
+    <div class="logo">
+      <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
+      <span>Cruise Compass</span>
+    </div>
+    
     <div class="search-bar">
             <input type="text" placeholder="Search destinations...">
             <button type="submit">Search</button>
@@ -112,6 +116,38 @@
   padding: 0;
   box-sizing: border-box;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  animation: pulse 2s infinite;
+}
+
+/* Animation for logo */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* Search Bar */
 .search-bar {
     display: flex;
