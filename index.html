@@ -1,30 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Cruise Compass</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="compass_styles.css"> </head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cruise Compass</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="compass_styles.css">
+    <style>
+        /* Additional styles specific to the Explore Places page */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .destination-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .destination-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .destination-info {
+            padding: 1.5rem;
+            background-color: #fff;
+        }
+        
+        .destination-info h3 {
+            color: #0c2461;
+            margin-top: 0;
+        }
+        
+        .destination-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .tag {
+            background-color: #e3f2fd;
+            color: #0c2461;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .destination-rating {
+            color: #f39c12;
+            margin: 0.5rem 0;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .filter-btn {
+            background-color: #e3f2fd;
+            color: #0c2461;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #0c2461;
+            color: white;
+        }
+        
+        .search-container {
+            margin: 1rem 0;
+        }
+        
+        .search-container input {
+            padding: 0.5rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
-            <span>Cruise Compass</span>
-        </div>
-
-        <div class="search-bar">
-            <input type="text" placeholder="Search destinations...">
-            <button type="submit">Search</button>
-        </div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Booking</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
+    <header>
+      <div class="logo">
+        <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
+        <span>Cruise Compass</span>
+        
+    </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore Places</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+ 
     <section class="hero">
         <div>
             <h1>Explore the world with cruise</h1>
@@ -36,9 +127,9 @@
     <section class="compass-navigation">
       <div class="compass-container">
         <img src="https://media-hosting.imagekit.io/22d18aa1ea764c8f/image%20zoomed.png?Expires=1840357474&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=j8Dhp6AOBEWtAROvTqGF8Lj4OhvYn4JWbhY2M32j~EtZnxBeVjd5gKC1oui0Dm-eCC5Fnpu22j-IWkgDWbIhlSHfYSOTVReHOxovNbxUwVbXRG8bCaqmRTKEQJGKZNKcX1Hex152jkj-OecKM1QbXZYqbFqsybFsTYRxnG7fKWjtSkd9HaBFseosA31F0W6cXJ7XfeqMvVKgjQCSbxpX0gIOWUOt2JsMMGRNYK57je6UuUEzDNzLwQqdXF91dtj9Nx8FnLY02EOASKLvDam7FTa2t7374UtViy2~dDBh2WA-634L1se7THlWwXX9tk5WJhVHoLaAn3ZgzyyFnMfpuQ__" alt="Spinning Compass" class="spinning-compass" />
-        <div class="nav-option option1">Booking</div>
-        <div class="nav-option option2">Find Restaurants</div>
-        <div class="nav-option option3">Explore Places</div>
+        <div class="nav-option option1"><a href="booking.html">Booking</a></div>
+        <div class="nav-option option2"><a href="restaurant.html">Find Restaurants</a></div>
+        <div class="nav-option option3"><a href="explore.html">Explore Places</a></div>
         <div class="nav-option option4">Short Trip Plan</div>
         <div class="nav-option option5">Long Trip Plan</div>
       </div>
@@ -115,8 +206,36 @@
 
     </section>
     <footer>
-        <p>&copy; 2025 Cruise Compass. All rights reserved. | <a href="#">Privacy Policy</a></p>
-    </footer>
+      <div class="footer-container">
+          <div class="footer-section">
+              <h3>About Cruise Compass</h3>
+              <p>We are dedicated to helping you find and book the perfect cruise vacation experience.</p>
+          </div>
+          <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="explore.html">Explore Places</a></li>
+                  <li><a href="#">Book Now</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3>Connect With Us</h3>
+              <div class="social-icons">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-pinterest"></i></a>
+              </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2025 Cruise Compass. All rights reserved.</p>
+      </div>
+  </footer>
+    <script src="script.js"></script>
 </body>
 </html>
  <style> * {
@@ -158,7 +277,7 @@
 /* Navigation Options around Compass */
 .nav-option {
   position: absolute;
-  background-color: #ffffff;
+  background-color: #5ce8e6;
   padding: 0.7rem 1rem;
   border-radius: 25px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -182,15 +301,44 @@
 .option4 { top: 95%; left: -15%; }
 .option5 { top: 25%; left: -40%;}
 
+
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  animation: pulse 2s infinite;
+}
+
+/* Animation for logo */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+}
 .logo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.8rem;
+  font-size: rem;
   font-weight: bold;
   letter-spacing: 1px;
-  color: #ffffff;
+  color: #151313
 }
+  
 
 .logo-img {
   width: 80px;
@@ -213,74 +361,118 @@
     opacity: 1;
   }
 }
-
-/* Search Bar */
-.search-bar {
-    display: flex;
+/* Main styles for Cruise Compass website */
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #1e3799;
+    --accent-color: #4a69bd;
+    --light-color: #e3f2fd;
+    --dark-color: #1e272e;
+    --text-color: #333;
+    --light-text-color: #293e90;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-.search-bar input[type="text"] {
-    padding: 0.5rem;
-    border: none;
-    border-radius: 5px 0 0 5px;
-    font-size: 1rem;
-    color: #333;
-}
-
-.search-bar button[type="submit"] {
-    background-color: #00cfff;
-    color: #004b87;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.search-bar button[type="submit"]:hover {
-    background-color: #00aadd;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f9ff;
-  color: #333;
-  line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #ffffff;
 }
 
-/* Navbar */
-.navbar {
-  background-color: #004b87;
-  color: #fff;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+a {
+    text-decoration: none;
+    color: var(--primary-color);
 }
 
-.navbar .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+ul {
+    list-style: none;
 }
 
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    margin-top: 1rem;
 }
 
-.navbar a:hover {
-  border-bottom: 2px solid #00cfff;
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
 }
+
+/* Header */
+header {
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.logo-container h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+
 
 /* Hero Section */
 .hero {
@@ -306,6 +498,21 @@ body {
 .hero p {
   font-size: 1.25rem;
   max-width: 600px;
+}
+/* Main styles for Cruise Compass website */
+:root {
+    --primary-color: #0c2461;
+    --secondary-color: #1e3799;
+    --accent-color: #4a69bd;
+    --light-color: #e3f2fd;
+    --dark-color: #1e272e;
+    --text-color: #333;
+    --light-text-color: #f5f6fa;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
 /* Featured Destinations */
@@ -365,21 +572,140 @@ body {
 
 /* Footer */
 footer {
-  background-color: #00355c;
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
-  font-size: 0.9rem;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 3rem 2rem 1rem;
+    margin-top: 4rem;
 }
 
-footer a {
-  color: #00cfff;
-  text-decoration: none;
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #0c2461;
+    padding-top: 48;
+    padding-bottom: 16;
+    padding-left: 32;
+    padding-right: 16;
 }
 
-footer a:hover {
-  text-decoration: underline;
+.footer-section h3 {
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
 }
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.footer-section p {
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    transition: var(--transition);
+}
+
+.footer-section ul li a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-btn {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 
 </style>
- 
+
