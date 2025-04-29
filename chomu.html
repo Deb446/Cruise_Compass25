@@ -1,0 +1,113 @@
+
+
+
+
+<section class="destinations">
+  <h2 style="text-align:center;">Explore Destinations</h2>
+  
+  <div class="destination-group">
+    <h3>🌍 Foreign Attractions</h3>
+    <div class="destination-list">
+      <div class="destination-card">
+        <img src="https://source.unsplash.com/featured/?paris" alt="Paris">
+        <h4>Paris, France</h4>
+        <p>Iconic landmarks like the Eiffel Tower and Louvre Museum.</p>
+      </div>
+      <div class="destination-card">
+        <img src="https://source.unsplash.com/featured/?bali" alt="Bali">
+        <h4>Bali, Indonesia</h4>
+        <p>Serene beaches, temples, and tropical retreats.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="destination-group">
+    <h3>Indian Attractions</h3>
+    <div class="destination-list">
+      <div class="destination-card">
+        <img src="https://source.unsplash.com/featured/?tajmahal" alt="Taj Mahal">
+        <h4>Agra, Uttar Pradesh</h4>
+        <p>Home to the majestic Taj Mahal, a world wonder.</p>
+      </div>
+      <div class="destination-card">
+        <img src="https://source.unsplash.com/featured/?kerala" alt="Kerala">
+        <h4>Alleppey, Kerala</h4>
+        <p>Famous for backwater houseboat cruises and greenery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  html {
+  scroll-behavior: smooth;
+}
+
+
+  /* ========== DESTINATION SECTION ========== */
+.destinations {
+  padding: 3rem 2rem;
+  background-color: #f5faff;
+  text-align: center;
+}
+
+.destinations h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.destination-group {
+  margin-bottom: 3rem;
+}
+
+.destination-group h3 {
+  font-size: 1.5rem;
+  color: #2563eb;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.destination-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.destination-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  width: 260px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.destination-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.destination-card h4 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+.destination-card p {
+  padding: 0 1rem 1.2rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
+</style>
+
