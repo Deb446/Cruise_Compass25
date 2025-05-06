@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>User Profile - Cruise Compass</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="compass_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+       
+        /* Basic styling for the profile page */
+        body {
+            background-color: #f0f9ff; /* Light background for the page */
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        header {
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+    }
+    
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #151313;
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+    }
+    
+    .logo-img {
+        width: 80px;
+        height: 80px;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        margin-left: 1.5rem;
+    }
+    
+    nav ul li a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        transition: var(--transition);
+        padding: 0.5rem;
+    }
+    
+    nav ul li a:hover,
+    nav ul li a.active {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--accent-color);
+    }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 4rem auto; /* Center the container and add space */
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+            animation: fadeIn 1s ease-out; /* Add a fade-in animation */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2.5rem; /* Increased space */
+            color: #0c2461; /* Using your primary color */
+            position: relative; /* For the underline effect */
+            padding-bottom: 1rem;
+        }
+
+        .profile-header h2 {
+            font-size: 2.2rem; /* Larger heading */
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px; /* Underline width */
+            height: 3px; /* Underline thickness */
+            background-color: #4a69bd; /* Using your accent color */
+            border-radius: 2px;
+        }
+
+
+        .profile-avatar {
+            width: 150px; /* Slightly larger avatar */
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem; /* Increased space */
+            border: 6px solid #e3f2fd; /* Thicker light border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow on avatar */
+            transition: transform 0.3s ease; /* Smooth hover effect */
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack items on small screens */
+            gap: 1.5rem; /* Space between detail items */
+            margin-top: 2rem;
+        }
+
+        .detail-item {
+            padding: 1.2rem; /* More padding */
+            background-color: #e3f2fd; /* Using your light color */
+            border-radius: 8px; /* More rounded corners */
+            border-left: 6px solid #4a69bd; /* Thicker accent border */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        .detail-item:hover {
+            transform: translateY(-5px); /* Lift slightly on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* More prominent shadow on hover */
+        }
+
+        .detail-item strong {
+            display: block;
+            margin-bottom: 0.6rem; /* Increased space */
+            color: #1e3799; /* Using your secondary color */
+            font-size: 1.15rem; /* Slightly larger font */
+            font-weight: 600; /* Slightly bolder */
+        }
+
+        .detail-item span {
+            color: #555; /* Slightly darker text for values */
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 600px) {
+            .profile-details {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Two columns on wider screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 2rem auto;
+                padding: 1.5rem;
+            }
+
+            .profile-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .detail-item {
+                padding: 1rem;
+            }
+
+            .detail-item strong {
+                font-size: 1.05rem;
+            }
+            
+    
+          
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
+          <span>Cruise Compass</span>
+          
+      </div>
+          <nav>
+              <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore Places</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="profile.html">Profile</a></li>
+              </ul>
+          </nav>
+      </header>
+
+    <main>
+        <section class="profile-container">
+            <div class="profile-header">
+                <img src="https://placehold.co/150x150/cccccc/000000?text=User" alt="User Avatar" class="profile-avatar" id="user-avatar">
+                <h2>User Profile</h2>
+            </div>
+
+            <div class="profile-details">
+                <div class="detail-item">
+                    <strong>Full Name:</strong> <span id="user-name"></span>
+                </div>
+                <div class="detail-item">
+                    <strong>Email:</strong> <span id="user-email"></span>
+                </div>
+                 <div class="detail-item">
+                    <strong>Phone Number:</strong> <span id="user-phone"></span>
+                </div>
+                 <div class="detail-item">
+                    <strong>Address:</strong> <span id="user-address"></span>
+                </div>
+                <div class="detail-item">
+                    <strong>Membership Type:</strong> <span id="user-membership"></span>
+                </div>
+                <div class="detail-item">
+                    <strong>Date Joined:</strong> <span id="user-joined"></span>
+                </div>
+                <div class="detail-item">
+                    <strong>Recent Bookings:</strong> <span id="user-bookings"></span>
+                </div>
+                <div class="detail-item">
+                    <strong>Preferred Destination:</strong> <span id="user-destination"></span>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // This is where you would typically fetch user data from your backend API.
+            // You would use JavaScript's Fetch API or XMLHttpRequest to make an
+            // asynchronous request to an endpoint that provides the logged-in
+            // user's information.
+
+            // Example using Fetch API (replace with your actual backend endpoint):
+            /*
+            fetch('/api/user/profile') // Replace with your backend API endpoint
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // Assuming your backend returns JSON
+                })
+                .then(userData => {
+                    // Once you have the user data from the backend,
+                    // populate the HTML elements with the fetched data.
+
+                    document.getElementById('user-name').textContent = userData.fullName || 'N/A';
+                    document.getElementById('user-email').textContent = userData.email || 'N/A';
+                    document.getElementById('user-phone').textContent = userData.phone || 'N/A';
+                    document.getElementById('user-address').textContent = userData.address || 'N/A';
+                    document.getElementById('user-membership').textContent = userData.membership || 'N/A';
+                    document.getElementById('user-joined').textContent = userData.dateJoined || 'N/A';
+                    document.getElementById('user-bookings').textContent = userData.recentBookings !== undefined ? userData.recentBookings : 'N/A';
+                    document.getElementById('user-destination').textContent = userData.preferredDestination || 'N/A';
+
+                    // Update avatar if provided by backend
+                    if (userData.avatarUrl) {
+                        document.getElementById('user-avatar').src = userData.avatarUrl;
+                    }
+
+                    // You can add more logic here to handle other data or UI updates
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    // Display an error message to the user or handle the error appropriately
+                    document.getElementById('user-name').textContent = 'Error loading profile';
+                    // Optionally clear other fields or show a specific error state
+                });
+            */
+
+            // Placeholder comments for where to add your backend fetching logic:
+            console.log("Placeholder: Add your backend data fetching logic here.");
+            console.log("Example: Use Fetch API to get user data from '/api/user/profile'.");
+            console.log("Then, use the fetched data to update the elements with IDs like 'user-name', 'user-email', etc.");
+
+            // Initial state: Clear placeholder text
+            document.getElementById('user-name').textContent = '';
+            document.getElementById('user-email').textContent = '';
+            document.getElementById('user-phone').textContent = '';
+            document.getElementById('user-address').textContent = '';
+            document.getElementById('user-membership').textContent = '';
+            document.getElementById('user-joined').textContent = '';
+            document.getElementById('user-bookings').textContent = '';
+            document.getElementById('user-destination').textContent = '';
+            // Avatar remains the placeholder until fetched
+        });
+    </script>
+    </body>
+</html>

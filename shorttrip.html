@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Main styles for Cruise Compass website */
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #1e3799;
+    --accent-color: #4a69bd;
+    --light-color: #e3f2fd;
+    --dark-color: #1e272e;
+    --text-color: #333;
+    --light-text-color: #293e90;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+/* Header */
+
+   
+
+header {
+        background-color: white;
+        box-shadow: var(--box-shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+    }
+    
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #151313;
+        width: px;
+        height: px;
+        margin-right: 1rem;
+    }
+    
+    .logo-img {
+        width: 80px;
+        height: 80px;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav ul li {
+        margin-left: 1.5rem;
+    }
+    
+    nav ul li a {
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        transition: var(--transition);
+        padding: 0.5rem;
+    }
+    
+    nav ul li a:hover,
+    nav ul li a.active {
+        color: var(--accent-color);
+        border-bottom: 2px solid var(--accent-color);
+    }
+
+
+
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Light blue background */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        #map {
+            height: 500px; /* Set a height for the map container */
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .controls-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+         #directions-panel {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: none; /* Initially hidden */
+        }
+    </style>
+ <script async defer src="https://app.gomaps.pro/apis/?key=YourAPIKey&libraries=places,directions&callback=initMap"></script>
+ <header>
+    <div class="logo">
+      <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
+      <span>Cruise Compass</span>
+      
+  </div>
+      <nav>
+          <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="explore.html">Explore Places</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+              <li><a href="register.html">Register</a></li>
+              <li><a href="profile.html">Profile</a></li>
+          </ul>
+      </nav>
+  </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-[#0c2461] mb-8">Plan Your Trip</h1>
+
+        <div class="controls-container">
+            <h2 class="text-xl font-semibold text-[#0c2461] mb-4">Short Trip Options (Nearby)</h2>
+            <div class="flex flex-wrap gap-4 mb-6">
+                <button id="find-places-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out">
+                    Find Nearby Interesting Places
+                </button>
+                <button id="find-restaurants-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out">
+                    Find Nearby Restaurants
+                </button>
+            </div>
+
+            <h2 class="text-xl font-semibold text-[#0c2461] mb-4">Long Trip Search</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                <input type="text" id="long-trip-search" placeholder="Enter destination for long trip" class="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button id="search-long-trip-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <div id="directions-panel" class="mt-6">
+            <h3 class="text-lg font-semibold text-[#0c2461] mb-2">Directions</h3>
+            </div>
+
+    </main>
+
+    <footer class="bg-[#0c2461] text-gray-300 py-8 px-6 mt-8">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="footer-section">
+                <h3 class="text-white text-lg font-semibold mb-4 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-[#4a69bd]">About Cruise Compass</h3>
+                <p class="text-gray-400">We are dedicated to helping you find and book the perfect cruise vacation experience.</p>
+            </div>
+            <div class="footer-section">
+                <h3 class="text-white text-lg font-semibold mb-4 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-[#4a69bd]">Quick Links</h3>
+                <ul>
+                    <li class="mb-2"><a href="index.html" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Home</a></li>
+                    <li class="mb-2"><a href="explore.html" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Explore Places</a></li>
+                    <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Book Now</a></li>
+                    <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">About Us</a></li>
+                    <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="text-white text-lg font-semibold mb-4 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-0.5 after:bg-[#4a69bd]">Connect With Us</h3>
+                <div class="social-icons flex gap-4 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-xl"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-xl"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-xl"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 ease-in-out text-xl"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center text-gray-500 mt-8 pt-4 border-t border-gray-700">
+            <p>&copy; 2025 Cruise Compass. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let map;
+        let placesService;
+        let directionsService;
+        let directionsRenderer;
+        let userLocation; // To store the user's current location
+        let markers = []; // Array to store markers
+
+        // Initialize the map
+        function initMap() {
+            // Default location (e.g., a central point) if user location is not available
+            const defaultLocation = { lat: 22.5726, lng: 88.3639 }; // Example: Kolkata, India
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 12, // Adjust zoom level as needed
+            });
+
+            placesService = new google.maps.places.PlacesService(map);
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map); // Bind the renderer to the map
+            directionsRenderer.setPanel(document.getElementById("directions-panel")); // Bind to directions panel
+
+            // Try to get the user's current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        map.setCenter(userLocation);
+                        // Add a marker for the user's location
+                        addMarker(userLocation, "Your Location", 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                    },
+                    () => {
+                        handleLocationError(true, map.getCenter());
+                    }
+                );
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, map.getCenter());
+            }
+        }
+
+        // Handle geolocation errors
+        function handleLocationError(browserHasGeolocation, pos) {
+            console.error(
+                browserHasGeolocation
+                    ? "Error: The Geolocation service failed."
+                    : "Error: Your browser doesn't support geolocation."
+            );
+            // Optionally set a default location or show a message
+        }
+
+        // Add a marker to the map
+        function addMarker(location, title, icon = null) {
+             // Clear existing markers before adding new ones for nearby searches
+            if (icon !== 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png') { // Don't clear user location marker
+                 clearMarkers();
+            }
+
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: title,
+                icon: icon // Use custom icon if provided
+            });
+            markers.push(marker); // Add marker to the array
+             return marker; // Return the created marker
+        }
+
+        // Clear all markers from the map
+        function clearMarkers() {
+            for (let i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = []; // Clear the markers array
+        }
+
+
+        // Find nearby places (for Short Trip)
+        function findNearby(type) {
+            if (!userLocation) {
+                alert("Could not determine your location. Please enable geolocation.");
+                return;
+            }
+
+            const request = {
+                location: userLocation,
+                radius: '5000', // Search within 5000 meters (5 km) - adjust as needed
+                type: [type], // 'restaurant' or 'point_of_interest'
+            };
+
+            placesService.nearbySearch(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                    clearMarkers(); // Clear previous markers
+                    // Add user location marker again after clearing
+                     addMarker(userLocation, "Your Location", 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+
+                    for (let i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+                    // Optionally adjust map bounds to fit all markers
+                    // const bounds = new google.maps.LatLngBounds();
+                    // markers.forEach(marker => bounds.extend(marker.getPosition()));
+                    // map.fitBounds(bounds);
+                } else {
+                    alert('Could not find nearby places of this type.');
+                }
+            });
+        }
+
+        // Create a marker for a place result
+        function createMarker(place) {
+            if (!place.geometry || !place.geometry.location) return;
+
+            const marker = addMarker(place.geometry.location, place.name);
+
+            // Add info window for place details
+            const infowindow = new google.maps.InfoWindow({
+                content: `<div><strong>${place.name}</strong><br>${place.vicinity || ''}<br>Rating: ${place.rating || 'N/A'}</div>`,
+            });
+
+            marker.addListener("click", () => {
+                infowindow.open(map, marker);
+                 // Option to show directions to this place on click
+                 displayRoute(userLocation, place.geometry.location);
+            });
+        }
+
+         // Display route between two points (for Short Trip navigation)
+        function displayRoute(origin, destination) {
+            // Show the directions panel
+            document.getElementById('directions-panel').style.display = 'block';
+
+            const request = {
+                origin: origin,
+                destination: destination,
+                travelMode: google.maps.TravelMode.DRIVING, // You can change travel mode (WALKING, BICYCLING, TRANSIT)
+            };
+
+            directionsService.route(request, (response, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                     document.getElementById('directions-panel').style.display = 'none'; // Hide panel on error
+                }
+            });
+        }
+
+
+        // Search for a place (for Long Trip)
+        function searchLongTrip() {
+            const query = document.getElementById('long-trip-search').value;
+            if (!query) {
+                alert("Please enter a destination to search.");
+                return;
+            }
+
+            const request = {
+                query: query,
+                fields: ['name', 'geometry'], // Specify the fields you need
+            };
+
+            placesService.findPlaceFromQuery(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results && results.length > 0) {
+                    clearMarkers(); // Clear previous markers
+                    // Add user location marker again
+                    if(userLocation) {
+                         addMarker(userLocation, "Your Location", 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+                    }
+
+                    const place = results[0];
+                    if (place.geometry && place.geometry.location) {
+                        map.setCenter(place.geometry.location);
+                        addMarker(place.geometry.location, place.name);
+                         map.setZoom(14); // Zoom in on the searched location
+                          directionsRenderer.setDirections(null); // Clear any previous directions
+                          document.getElementById('directions-panel').style.display = 'none'; // Hide directions panel
+                    }
+                } else {
+                    alert('Could not find the specified place.');
+                }
+            });
+        }
+
+
+        // Event Listeners
+        document.getElementById('find-places-btn').addEventListener('click', () => {
+             directionsRenderer.setDirections(null); // Clear any previous directions
+             document.getElementById('directions-panel').style.display = 'none'; // Hide directions panel
+            findNearby('point_of_interest');
+        });
+
+        document.getElementById('find-restaurants-btn').addEventListener('click', () => {
+             directionsRenderer.setDirections(null); // Clear any previous directions
+             document.getElementById('directions-panel').style.display = 'none'; // Hide directions panel
+            findNearby('restaurant');
+        });
+
+        document.getElementById('search-long-trip-btn').addEventListener('click', searchLongTrip);
+
+        // Allow searching by pressing Enter in the input field
+        document.getElementById('long-trip-search').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Prevent default form submission
+                searchLongTrip();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
