@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cruise Compass</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="compass_styles.css">
+    <style>
+        /* Additional styles specific to the Explore Places page */
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .destination-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .destination-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .destination-info {
+            padding: 1.5rem;
+            background-color: #fff;
+        }
+        
+        .destination-info h3 {
+            color: #0c2461;
+            margin-top: 0;
+        }
+        
+        .destination-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .tag {
+            background-color: #e3f2fd;
+            color: #0c2461;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .destination-rating {
+            color: #f39c12;
+            margin: 0.5rem 0;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .filter-btn {
+            background-color: #e3f2fd;
+            color: #0c2461;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #0c2461;
+            color: white;
+        }
+        
+        .search-container {
+            margin: 1rem 0;
+        }
+        
+        .search-container input {
+            padding: 0.5rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+      <div class="logo">
+        <img src="https://media-hosting.imagekit.io/6d69557637314486/Canva-logo.png?Expires=1840341520&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=q2dv94uiYz~gSdw4JdxTCKeLE3x-oIWESJerWcqwfJ7I2U5~kynGwGM8a06Jaa00hB7oi2uo1m8u~SzpBWjPeavooejpWhX6mM-GRNXHm0WVxpUdBw2M-Ui9WPo~pNbRRv7d9sDmcFJfSyT8p3U3NnIBFBuSRCrIdQ3D1FBA2CXWYwdiCyH~rAXHYdNu0NktGwPCl6h1FRkqNDs3SILnePnw-ndyfDuEzpdEdqZso3wLzcnSOSRkNAK-qWRbXk5-0gHVKoSf2mKazaMxgc4PJDJ9oMN-aPZI5dhK4H9SQ2dagLD-qluGiOwlnCsfvhdtUg2072wlzwN4ychh1uioPg__" alt="Cruise Compass Logo" class="logo-img">
+        <span>Cruise Compass</span>
+        
+    </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore Places</a></li>
+                <li><a href="booking.html">Book Now</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero booking-hero">
+        <div class="hero-content">
+            <h2>Book your adventure</h2>
+        </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <section class="booking-container">
+        <div class="booking-info">
+            <h2>Reservation Details</h2>
+            <p>Fill out the form below to book your cruise. Our team will contact you within 24 hours to confirm your reservation and process payment.</p>
+            
+            <div class="booking-benefits">
+                <div class="benefit">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure Booking</h3>
+                    <p>Your personal information is encrypted and protected</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-undo"></i>
+                    <h3>Free Cancellation</h3>
+                    <p>Cancel up to 30 days before departure for a full refund</p>
+                </div>
+                <div class="benefit">
+                    <i class="fas fa-tag"></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We'll match any lower price you find elsewhere</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="booking-form">
+            <form id="cruise-booking-form">
+                <div class="form-group">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="first-name">First Name*</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="last-name">Last Name*</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="email">Email Address*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="phone">Phone Number*</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Cruise Selection</h3>
+                    <div class="form-field">
+                        <label for="cruise-destination">Destination*</label>
+                        <select id="cruise-destination" name="cruise-destination" required>
+                            <option value="">Select a destination</option>
+                            <option value="eastern-caribbean">Eastern Caribbean</option>
+                            <option value="western-caribbean">Western Caribbean</option>
+                            <option value="southern-caribbean">Southern Caribbean</option>
+                            <option value="bahamas">Bahamas</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="departure-date">Departure Date*</label>
+                            <input type="date" id="departure-date" name="departure-date" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="cruise-duration">Duration*</label>
+                            <select id="cruise-duration" name="cruise-duration" required>
+                                <option value="">Select duration</option>
+                                <option value="3-4">3-4 nights</option>
+                                <option value="5-6">5-6 nights</option>
+                                <option value="7-9">7-9 nights</option>
+                                <option value="10+">10+ nights</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Passenger Information</h3>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="adults">Adults (18+)*</label>
+                            <select id="adults" name="adults" required>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label for="children">Children (0-17)</label>
+                            <select id="children" name="children">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Cabin Preference</h3>
+                    <div class="cabin-options">
+                        <div class="cabin-option">
+                            <input type="radio" id="interior" name="cabin-type" value="interior" checked>
+                            <label for="interior">
+                                <span class="cabin-name">Interior</span>
+                                <span class="cabin-price">From $499/person</span>
+                            </label>
+                        </div>
+                        <div class="cabin-option">
+                            <input type="radio" id="ocean-view" name="cabin-type" value="ocean-view">
+                            <label for="ocean-view">
+                                <span class="cabin-name">Ocean View</span>
+                                <span class="cabin-price">From $699/person</span>
+                            </label>
+                        </div>
+                        <div class="cabin-option">
+                            <input type="radio" id="balcony" name="cabin-type" value="balcony">
+                            <label for="balcony">
+                                <span class="cabin-name">Balcony</span>
+                                <span class="cabin-price">From $899/person</span>
+                            </label>
+                        </div>
+                        <div class="cabin-option">
+                            <input type="radio" id="suite" name="cabin-type" value="suite">
+                            <label for="suite">
+                                <span class="cabin-name">Suite</span>
+                                <span class="cabin-price">From $1,299/person</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Additional Services</h3>
+                    <div class="additional-services">
+                        <div class="service-option">
+                            <input type="checkbox" id="dining-package" name="additional-services" value="dining-package">
+                            <label for="dining-package">Premium Dining Package (+$199)</label>
+                        </div>
+                        <div class="service-option">
+                            <input type="checkbox" id="beverage-package" name="additional-services" value="beverage-package">
+                            <label for="beverage-package">Beverage Package (+$299)</label>
+                        </div>
+                        <div class="service-option">
+                            <input type="checkbox" id="wifi-package" name="additional-services" value="wifi-package">
+                            <label for="wifi-package">WiFi Package (+$99)</label>
+                        </div>
+                        <div class="service-option">
+                            <input type="checkbox" id="travel-insurance" name="additional-services" value="travel-insurance">
+                            <label for="travel-insurance">Travel Insurance (+$149)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h3>Special Requests</h3>
+                    <div class="form-field">
+                        <textarea id="special-requests" name="special-requests" rows="4" placeholder="Please let us know if you have any dietary restrictions, accessibility needs, or other special requests."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group terms">
+                    <div class="service-option">
+                        <input type="checkbox" id="terms-agreement" name="terms-agreement" required>
+                        <label for="terms-agreement">I agree to the <a href="terms.html">Terms and Conditions</a> and <a href="privacy.html">Privacy Policy</a>*</label>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Reserve Now</button>
+                    <button type="reset" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>What's included in the cruise price?</h3>
+                <p>Your cruise fare includes accommodation, all meals in main dining venues, select beverages, entertainment, and access to most onboard facilities. Additional charges apply for specialty dining, premium beverages, shore excursions, and spa treatments.</p>
+            </div>
+            <div class="faq-item">
+                <h3>How do I pay for my cruise?</h3>
+                <p>After submitting your booking request, our team will contact you within 24 hours to confirm availability and process payment. We accept all major credit cards and offer installment payment plans.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What is your cancellation policy?</h3>
+                <p>Cancellations made 30+ days before departure receive a full refund. Cancellations 15-29 days before departure receive a 50% refund. Cancellations less than 15 days before departure are non-refundable.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do I need a passport?</h3>
+                <p>Yes, a valid passport is required for all international cruises. Your passport must be valid for at least 6 months beyond your travel dates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Need Help With Your Booking?</h2>
+            <p>Our cruise specialists are standing by to assist you with any questions or special requests.</p>
+            <div class="cta-buttons">
+                <a href="tel:1-800-CRUISES" class="btn btn-secondary"><i class="fas fa-phone"></i> Call 1-800-CRUISES</a>
+                <a href="contact.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Email Us</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+      <div class="footer-container">
+          <div class="footer-section">
+              <h3>About Cruise Compass</h3>
+              <p>We are dedicated to helping you find and book the perfect cruise vacation experience.</p>
+          </div>
+          <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="explore.html">Explore Places</a></li>
+                  <li><a href="#">Book Now</a></li>
+                  <li><a href="#">About Us</a></li>
+                  <li><a href="#">Contact</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3>Connect With Us</h3>
+              <div class="social-icons">
+                  <a href="#"><i class="fab fa-facebook"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-pinterest"></i></a>
+              </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2025 Cruise Compass. All rights reserved.</p>
+      </div>
+  </footer>
+    <script src="booking_server.js"></script>
+</body>
+</html>
+<style>
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #151313;
+}
+
+.logo-img {
+  width: 80px;
+  height: 80px;
+  animation: pulse 2s infinite;
+}
+
+/* Animation for logo */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Main styles for Cruise Compass website */
+:root {
+    --primary-color: #0c2461;
+    --secondary-color: #1e3799;
+    --accent-color: #4a69bd;
+    --light-color: #e3f2fd;
+    --dark-color: #1e272e;
+    --text-color: #333;
+    --light-text-color: #f5f6fa;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f8f9fa;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+/* Header */
+header {
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
+
+.logo-container h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--accent-color);
+}
+/* Add these styles to your existing styles.css file */
+
+/* Booking Hero Section */
+.booking-hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Booking Container */
+.booking-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.booking-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.booking-form {
+    flex: 2;
+    min-width: 600px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Booking Benefits */
+.booking-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.benefit {
+    flex: 1;
+    min-width: 200px;
+    background-color: #f0f8ff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.benefit:hover {
+    transform: translateY(-5px);
+}
+
+.benefit i {
+    font-size: 32px;
+    color: #0078c8;
+    margin-bottom: 15px;
+}
+
+.benefit h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.benefit p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+
+.form-group:last-child {
+    border-bottom: none;
+}
+
+.form-group h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #0078c8;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-field {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #0078c8;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 120, 200, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Cabin Options */
+.cabin-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cabin-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.cabin-option:hover {
+    background-color: #f0f8ff;
+}
+
+.cabin-option input[type="radio"] {
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+    accent-color: #0078c8;
+}
+
+.cabin-option label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+
+.cabin-name {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.cabin-price {
+    color: #0078c8;
+    font-weight: 500;
+}
+
+/* Additional Services */
+.additional-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.service-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.service-option input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #0078c8;
+}
+
+.service-option label {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background-color: #0078c8;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #005fa3;
+}
+
+.btn-secondary {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #e6e6e6;
+}
+
+/* Terms and Privacy Links */
+.terms a {
+    color: #0078c8;
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+/* FAQ Section */
+.faq-section {
+    background-color: #f9f9f9;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.faq-section h2 {
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.faq-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.faq-item {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-5px);
+}
+
+.faq-item h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #0078c8;
+}
+
+.faq-item p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Call to Action Section */
+.cta-section {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/cta-background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.cta-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+    min-width: 200px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .booking-container {
+        flex-direction: column;
+    }
+    
+    .booking-form {
+        min-width: 100%;
+    }
+    
+    .cabin-option label {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .cabin-price {
+        margin-top: 5px;
+    }
+    
+    .faq-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-hero {
+        height: 300px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .additional-services {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-field {
+        min-width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 3rem 2rem 1rem;
+    margin-top: 4rem;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.footer-section p {
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    transition: var(--transition);
+}
+
+.footer-section ul li a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.social-icons a:hover {
+    background-color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    nav ul {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem;
+    }
+    
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .filters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-btn {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .destination-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
